@@ -35,7 +35,6 @@ class Bot():
             if r.status_code == 200:
                 self.success += 1
                 sys.stdout.write('\r[+] Für %s abgestimmt                                                           \r\n' %self.name)
-                sys.stdout.flush()
         except:
             sys.stdout.write('\r[!] Ein Fehler ist aufgetreten                                                      \r\n')
         self.trys += 1
