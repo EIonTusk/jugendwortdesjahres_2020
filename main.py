@@ -45,7 +45,7 @@ class Bot():
             self.send()
             sys.stdout.write('\rVersuche: %s, Erfolgreiche Versuche: %s, Fehlgeschlagene Versuche: %s' %(self.trys, self.success, self.trys - self.success))
             sys.stdout.flush()
-            time.sleep(random.randint(10, 20))
+            time.sleep(random.randint(5, 10))
 
 if __name__ == '__main__':
     bot = Bot()
