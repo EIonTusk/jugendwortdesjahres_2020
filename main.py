@@ -21,7 +21,7 @@ class Bot():
         r = requests.get(self.url)
         soup = BeautifulSoup(r.text, 'html.parser')
         surveydata = soup.find(id='survey_data')['value']
-        self.data = {'463803414': '3067519628',
+        self.data = {'463803414': random.choice(['3067519627', '3067519628', '3067519629', '3067519630']),
                      '463803684': self.name,
                      '483089934[]': '3189794655',
                      'survey_data': surveydata,
