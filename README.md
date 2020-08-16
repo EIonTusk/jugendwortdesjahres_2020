@@ -1,3 +1,4 @@
+# Bot funktioniert nicht mehr, da der Einsendeschluss überschritten ist! Am 25. September geht es in die nächste Runde. Es wird so schnell wie möglich eine neue Version für das nächste Voting erscheinen. Ziel: 27. September
 # jugendwortdesjahres_2020
 Bot zum automatisierten voten für das Jugendwort des Jahres.
 ## Installation unter Windows
