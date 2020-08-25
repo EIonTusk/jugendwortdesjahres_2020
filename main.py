@@ -2,42 +2,77 @@ import requests
 import random
 import time
 import sys
-from bs4 import BeautifulSoup
+from selenium import webdriver
 
 class Bot():
     def __init__(self):
+        self.vote_list = ['Schabernack', 'Mittwoch', 'Sauftrag', 'Wild/Wyld', 'Lost', 'no front', 'Köftespieß',
+                          'Digga/Diggah', 'Cringe', 'Mashallah']
         print('[#] Programmiert von EIonTusk')
         print('[#] Github: https://github.com/EIonTusk')
-        print('----------------------------------------------------------------------')
-        print('[*] Gib dein Jugendwort des Jahres ein (s = Schabernack, m = Mittwoch)')
-        self.name = input('>>> ')
-        if self.name == '' or self.name == 's':
-            self.name = 'Schabernack'
-        elif self.name == 'm':
-            self.name = 'Mittwoch'
+        while True:
+            print('----------------------------------------------------------------------')
+            print('[*] Gib dein Jugendwort des Jahres aus den Top10 ein.')
+            print('[*] Top10: %s'%(self.vote_list))
+            self.name = input('>>> ')
+            self.vote = None
+            for i in range(len(self.vote_list)):
+                if self.vote_list[i] == self.name:
+                    print('[+] Gültige Eingabe!')
+                    self.vote = i
+                    break
+
+            if self.vote != None:
+                break
+            else:
+                print('[!] Ungültige Eingabe!')
+
         self.trys = 0
         self.success = 0
-        self.url = "https://www.surveymonkey.com/r/7JZRVLJ?embedded=1"
-        r = requests.get(self.url)
-        soup = BeautifulSoup(r.text, 'html.parser')
-        surveydata = soup.find(id='survey_data')['value']
-        self.data = {'463803414': random.choice(['3067519627', '3067519628', '3067519629', '3067519630']),
-                     '463803684': self.name,
-                     '483089934[]': '3189794655',
-                     'survey_data': surveydata,
-                     'is_previous': 'false'
-                     }
+        self.url = "https://woerterbuch.langenscheidt.de/js20/top10/vote"
+        self.url_site = 'https://woerterbuch.langenscheidt.de/js20/top10'
+        self.headers = {'Host': 'woerterbuch.langenscheidt.de',
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0',
+                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                        'Accept-Language': 'de,en-US;q=0.7,en;q=0.3',
+                        'Accept-Encoding': 'gzip, deflate, br',
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-Length': '461',
+                        'Origin': 'null',
+                        'Connection': 'keep-alive',
+                        'Cookie': 'js20=eyJ0b3AxMEFnZUlkeCI6MiwidG9wMTBXb3JkSWR4IjowLCJ0b3AxMENvbnNlbnQiOjEsInZvdGVkVG9wMTAiOjAsInZvdGVkVG9wMTBXb3JkIjoiU2NoYWJlcm5hY2sifQ==; js20.sig=W0UAPnkamc9lOvQRdLP4hJNhdRs',
+                        'Upgrade-Insecure-Requests': '1',
+                        'TE': 'Trailers'}
+        self.check = 'Wir haben deine Abstimmung gespeichert.'
+        age_list = ['1', '2', '3', '4']
+        GECKODRIVER_BIN = r".\geckodriver.exe"
+        self.driver = webdriver.Firefox(executable_path=GECKODRIVER_BIN)
+        self.driver.header_overrides = self.headers
+        self.driver.get(self.url_site)
+        time.sleep(3)
+        iframe = self.driver.find_elements_by_tag_name('iframe')[0]
+        self.driver.switch_to.frame(iframe)
+        token = self.driver.find_element_by_xpath('//*[@id="recaptcha-token"]').get_attribute('value')
+        self.driver.close()
+        self.data = {'age': random.choice(age_list),
+                     'w': str(self.vote),
+                     'consent': '1',
+                     'g-recaptcha-response': token}
         print('[*] Das Programm startet jetzt')
         self.loop()
+
     def send(self):
         try:
-            r = requests.post(self.url, data = self.data)
-            if r.status_code == 200:
+            r = requests.post(self.url, data=self.data, headers=self.headers)
+            if r.status_code == 200 and self.check in r.text:
                 self.success += 1
                 sys.stdout.write('\r[+] Für %s abgestimmt                                                           \r\n' %self.name)
+            else:
+                sys.stdout.write('\r[!] Ein Fehler ist aufgetreten                                                      \r\n')
         except:
             sys.stdout.write('\r[!] Ein Fehler ist aufgetreten                                                      \r\n')
         self.trys += 1
+
 
 
     def loop(self):
