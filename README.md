@@ -1,4 +1,4 @@
-# Bot funktioniert nicht mehr, da der Einsendeschluss überschritten ist! Am 25. September geht es in die nächste Runde. Es wird so schnell wie möglich eine neue Version für das nächste Voting erscheinen. Ziel: 27. September
+### Funktioniert bereits, ist aber jedoch durch das benutzen von selenium webdriver ein wenig umständlich, daran arbeite ich bereits. Ausserdem wird in den nächsten Tagen der Source Code übersichtlicher gestalltet.
 # jugendwortdesjahres_2020
 Bot zum automatisierten voten für das Jugendwort des Jahres.
 ## Installation unter Windows
