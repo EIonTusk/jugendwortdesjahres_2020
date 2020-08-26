@@ -1,4 +1,5 @@
 ### Funktioniert bereits, ist aber jedoch durch das benutzen von selenium webdriver ein wenig umständlich, daran arbeite ich bereits. Ausserdem wird in den nächsten Tagen der Source Code übersichtlicher gestalltet.
+### Für heut Abend ist ein Patch angesetzt.
 # jugendwortdesjahres_2020
 Bot zum automatisierten voten für das Jugendwort des Jahres.
 ## Installation unter Windows
