@@ -51,6 +51,7 @@ class Bot():
         r.html.render()
         soup = BeautifulSoup(r.html.html, 'html.parser')
         iframe = soup.find_all('iframe')[0]['src']
+        session.close()
         r = requests.get(iframe)
         soup = BeautifulSoup(r.text, 'html.parser')
         token = soup.find(id='recaptcha-token')['value']
