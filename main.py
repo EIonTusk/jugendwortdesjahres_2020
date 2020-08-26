@@ -2,7 +2,8 @@ import requests
 import random
 import time
 import sys
-from selenium import webdriver
+from bs4 import BeautifulSoup
+from requests_html import HTMLSession
 
 class Bot():
     def __init__(self):
@@ -45,15 +46,14 @@ class Bot():
                         'TE': 'Trailers'}
         self.check = 'Wir haben deine Abstimmung gespeichert.'
         age_list = ['1', '2', '3', '4']
-        GECKODRIVER_BIN = r".\geckodriver.exe"
-        self.driver = webdriver.Firefox(executable_path=GECKODRIVER_BIN)
-        self.driver.header_overrides = self.headers
-        self.driver.get(self.url_site)
-        time.sleep(3)
-        iframe = self.driver.find_elements_by_tag_name('iframe')[0]
-        self.driver.switch_to.frame(iframe)
-        token = self.driver.find_element_by_xpath('//*[@id="recaptcha-token"]').get_attribute('value')
-        self.driver.close()
+        session = HTMLSession()
+        r = session.get(self.url_site)
+        r.html.render()
+        soup = BeautifulSoup(r.html.html, 'html.parser')
+        iframe = soup.find_all('iframe')[0]['src']
+        r = requests.get(iframe)
+        soup = BeautifulSoup(r.text, 'html.parser')
+        token = soup.find(id='recaptcha-token')['value']
         self.data = {'age': random.choice(age_list),
                      'w': str(self.vote),
                      'consent': '1',
