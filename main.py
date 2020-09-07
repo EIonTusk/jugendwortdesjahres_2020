@@ -12,8 +12,7 @@ from proxy_requests import ProxyRequests
 
 class Bot():
     def __init__(self):
-        self.vote_list = ['Schabernack', 'Mittwoch', 'Sauftrag', 'Wild/Wyld', 'Lost', 'no front', 'Köftespieß',
-                          'Digga/Diggah', 'Cringe', 'Mashallah']
+        self.vote_list = ['Schabernack', 'Mittwoch', 'Sauftrag', 'Wild/Wyld', 'Lost', 'no front', 'Köftespieß', 'Digga/Diggah', 'Cringe', 'Mashallah']
         print('[#] Programmiert von EIonTusk')
         print('[#] Github: https://github.com/EIonTusk')
         print('----------------------------------------------------------------------')
@@ -63,6 +62,7 @@ class Bot():
 
         self.check = 'Wir haben deine Abstimmung gespeichert.'
         age_list = ['1', '2', '3', '4']
+
         while True:
             try:
                 session = HTMLSession()
@@ -85,6 +85,7 @@ class Bot():
                      'consent': '1',
                      'g-recaptcha-response': token}
         print('[*] Das Programm startet jetzt')
+
         self.loop()
 
     def send(self):
@@ -111,7 +112,7 @@ class Bot():
             self.send()
             sys.stdout.write('\rVersuche: %s, Erfolgreiche Versuche: %s, Fehlgeschlagene Versuche: %s' %(self.trys, self.success, self.trys - self.success))
             sys.stdout.flush()
-            time.sleep(random.randint(3, 5))
+            time.sleep(random.randint(1, 3))
 
 if __name__ == '__main__':
     bot = Bot()
