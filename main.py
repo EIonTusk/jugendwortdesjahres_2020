@@ -63,16 +63,22 @@ class Bot():
 
         self.check = 'Wir haben deine Abstimmung gespeichert.'
         age_list = ['1', '2', '3', '4']
-
-        session = HTMLSession()
-        r = session.get(self.url_site)
-        r.html.render()
-        soup = BeautifulSoup(r.html.html, 'html.parser')
-        iframe = soup.find_all('iframe')[0]['src']
-        session.close()
-        r = requests.get(iframe)
-        soup = BeautifulSoup(r.text, 'html.parser')
-        token = soup.find(id='recaptcha-token')['value']
+        while True:
+            try:
+                session = HTMLSession()
+                r = session.get(self.url_site)
+                r.html.render()
+                session.close()
+                soup = BeautifulSoup(r.html.html, 'html.parser')
+                iframe = soup.find_all('iframe')[0]['src']
+                r = requests.get(iframe)
+                soup = BeautifulSoup(r.text, 'html.parser')
+                token = soup.find(id='recaptcha-token')['value']
+                print('[+] Recaptcha-Token bekommen')
+                break
+            except:
+                print('[!] Nicht möglich Recaptcha-Token zu bekommen')
+                print('[*] Versuche es nochmal')
 
         self.data = {'age': random.choice(age_list),
                      'w': str(self.vote),
