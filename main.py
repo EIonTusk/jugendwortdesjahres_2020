@@ -5,6 +5,7 @@ import sys
 from bs4 import BeautifulSoup
 from requests_html import HTMLSession
 from proxy_requests import ProxyRequests
+from pyfiglet import Figlet
 
 # I'm really sorry for this code. It is a mess.
 # But it works and I am very lazy, so I think it will stay like this for a long time.
@@ -12,6 +13,8 @@ from proxy_requests import ProxyRequests
 
 class Bot():
     def __init__(self):
+        f = Figlet(font='slant')
+        print(f.renderText('JwdJ 2020 Bot'))
         self.vote_list = ['Schabernack', 'Mittwoch', 'Sauftrag', 'Wild/Wyld', 'Lost', 'no front', 'Köftespieß', 'Digga/Diggah', 'Cringe', 'Mashallah']
         print('[#] Programmiert von EIonTusk')
         print('[#] Github: https://github.com/EIonTusk')
@@ -23,6 +26,9 @@ class Bot():
             i = input('>>> ')
             if i in ['YES', 'Y', 'y', 'yes', 'ja', 'j', 'JA', 'J']:
                 self.proxy = True
+                break
+            elif i in ['No', 'N', 'n', 'no', 'NEIN', 'Nein', 'nein']:
+                self.proxy = False
                 break
             else:
                 print('[!] Ungültige Eingabe!')
