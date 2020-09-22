@@ -15,14 +15,14 @@ class Bot():
     def __init__(self):
         f = Figlet(font='slant')
         print(f.renderText('JwdJ 2020 Bot'))
-        self.vote_list = ['Schabernack', 'Mittwoch', 'Sauftrag', 'Wild/Wyld', 'Lost', 'no front', 'Köftespieß', 'Digga/Diggah', 'Cringe', 'Mashallah']
+        self.vote_list = ['Wild/Wyld', 'Lost', 'Cringe']
         print('[#] Programmiert von EIonTusk')
         print('[#] Github: https://github.com/EIonTusk')
         print('----------------------------------------------------------------------')
         self.proxy = False
         self.proxy_list = False
         while True:
-            print('[*] Willst du einen Proxyserver benutzen?[Y/n]')
+            print('[*] Willst du einen Proxyserver benutzen?[Y/n](Anonymer aber langsamer)')
             i = input('>>> ')
             if i in ['YES', 'Y', 'y', 'yes', 'ja', 'j', 'JA', 'J']:
                 self.proxy = True
@@ -59,12 +59,11 @@ class Bot():
                         'Accept-Language': 'de,en-US;q=0.7,en;q=0.3',
                         'Accept-Encoding': 'gzip, deflate, br',
                         'Content-Type': 'application/x-www-form-urlencoded',
-                        'Content-Length': '461',
+                        'Content-Length': '525',
                         'Origin': 'null',
                         'Connection': 'keep-alive',
-                        'Cookie': 'js20=eyJ0b3AxMEFnZUlkeCI6MiwidG9wMTBXb3JkSWR4IjowLCJ0b3AxMENvbnNlbnQiOjEsInZvdGVkVG9wMTAiOjAsInZvdGVkVG9wMTBXb3JkIjoiU2NoYWJlcm5hY2sifQ==; js20.sig=W0UAPnkamc9lOvQRdLP4hJNhdRs',
-                        'Upgrade-Insecure-Requests': '1',
-                        'TE': 'Trailers'}
+                        'Cookie': 'js20=eyJ0b3AzQWdlSWR4IjoyLCJ0b3AzV29yZElkeCI6MCwidG9wM0NvbnNlbnQiOjEsInZvdGVkVG9wMyI6MCwidG9wM1dvcmQiOiJXaWxkL1d5bGQifQ==; js20.sig=vnlpaOYf1Ym-DazwDNPWKC1i4Qo',
+                        'Upgrade-Insecure-Requests': '1'}
 
         self.check = 'Wir haben deine Abstimmung gespeichert.'
         age_list = ['1', '2', '3', '4']
@@ -104,7 +103,7 @@ class Bot():
                 r.post_with_headers(self.data)
             else:
                 sys.stdout.write('\r[!] Ein Fehler ist aufgetreten                                                      \r\n')
-            if self.check in str(r):
+            if self.check in str(r) or self.check in r.text:
                 self.success += 1
                 sys.stdout.write('\r[+] Für %s abgestimmt                                                           \r\n' %self.name)
             else:
