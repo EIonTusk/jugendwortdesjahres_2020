@@ -1,5 +1,5 @@
 # jugendwortdesjahres_2020
-Bot zum automatisierten voten für das Jugendwort des Jahres.
+Bot zum automatisierten voten für die Top3 des Jugendwort des Jahres.
 ## Installation unter Windows
 ### Über den Explorer bei Windows
 Vorraussetzung: Python 3.5 oder höher  
